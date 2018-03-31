@@ -10,8 +10,8 @@ function Screen({ navigateTo }) {
   return (
     <CenterView>
       <Button
-        title="Get Pizza"
-        onPress={() => navigateTo('PizzaPicker', { name: 'Test' })}
+        title="Sign In"
+        onPress={() => navigateTo('SignIn', { name: 'Test' })}
       />
       <Query query={QUERY}>
         {({ loading, error, data }) => {
