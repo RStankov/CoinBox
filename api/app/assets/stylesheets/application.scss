@@ -38,6 +38,11 @@
     @extend .text-right;
   }
 
+  .boolean {
+    @extend .text-right;
+    width: 1%;
+  }
+
   .small {
     width: 1%;
   }
