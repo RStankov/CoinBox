@@ -1,6 +1,7 @@
 class GraphqlController < ActionController::Base
   skip_before_action :verify_authenticity_token
 
+  before_action :authenticate
   before_action :ensure_query
 
   def execute
@@ -17,8 +18,30 @@ class GraphqlController < ActionController::Base
 
   private
 
+  BEARER_PATTERN = /^Bearer /
+
+  def authenticate
+    return authentication_error if request.headers["Authorization"].blank?
+
+    header  = request.headers['Authorization']
+    game_token, player_token = header.gsub(BEARER_PATTERN, '').split('-') if header && header.match(BEARER_PATTERN)
+
+    @current_game = GameApiKey.find_by(token: game_token)&.game
+
+    return authentication_error if @current_game.nil?
+    return if player_token.blank?
+
+    @current_player = @current_game.players.find_by access_token: player_token
+
+    return authentication_error if @current_player.nil?
+  end
+
   def ensure_query
     render json: { data: {} } if query.blank?
+  end
+
+  def authentication_error
+    render json: { data: {}, errors: [{ message: 'authentication failed' }, locations: [], path: []] }
   end
 
   def query
@@ -31,7 +54,9 @@ class GraphqlController < ActionController::Base
 
   def context
     {
-      current_user: current_user,
+      current_game: @current_game,
+      current_player: @current_player,
+      request: request,
     }
   end
 
