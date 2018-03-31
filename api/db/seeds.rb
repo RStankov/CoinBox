@@ -7,3 +7,5 @@ account = Account.find_by_name('CoinBox') || Account.create!(
 )
 
 demo = account.games.find_or_create_by! name: 'Demo'
+
+api_key = demo.api_keys.find_or_create_by! name: 'Mobile'
