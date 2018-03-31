@@ -26,6 +26,6 @@ class GameApiKey < ApplicationRecord
   private
 
   def generate_token
-    self.token ||= GenerateToken.call(model: self, attribute_name: :token, length: 40)
+    self.token ||= GenerateToken.call(model: self, attribute_name: :token, length: 20)
   end
 end
