@@ -2,14 +2,15 @@
 #
 # Table name: transferables
 #
-#  id         :uuid             not null, primary key
-#  game_id    :uuid             not null
-#  identifier :string           not null
-#  name       :string           not null
-#  value      :integer          default(0), not null
-#  properties :jsonb            not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :uuid             not null, primary key
+#  game_id     :uuid             not null
+#  identifier  :string           not null
+#  name        :string           not null
+#  value       :integer          default(0), not null
+#  properties  :jsonb            not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  purchasable :boolean          default(FALSE), not null
 #
 
 class Transferable < ApplicationRecord

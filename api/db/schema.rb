@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_31_142654) do
+ActiveRecord::Schema.define(version: 2018_03_31_145649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 2018_03_31_142654) do
     t.jsonb "properties", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "purchasable", default: false, null: false
     t.index ["game_id", "identifier"], name: "index_transferables_on_game_id_and_identifier", unique: true
     t.index ["game_id"], name: "index_transferables_on_game_id"
   end
