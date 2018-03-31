@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_31_093347) do
+ActiveRecord::Schema.define(version: 2018_03_31_100244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2018_03_31_093347) do
   create_table "accounts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["name"], name: "index_accounts_on_name", unique: true
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
@@ -45,9 +47,23 @@ ActiveRecord::Schema.define(version: 2018_03_31_093347) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "game_api_keys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "game_id", null: false
+    t.string "name", null: false
+    t.string "token", null: false
+    t.datetime "last_used_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_api_keys_on_game_id"
+    t.index ["token"], name: "index_game_api_keys_on_token", unique: true
+  end
+
   create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "api_keys_count", default: 0, null: false
     t.index ["account_id", "name"], name: "index_games_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_games_on_account_id"
   end
@@ -71,5 +87,6 @@ ActiveRecord::Schema.define(version: 2018_03_31_093347) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "game_api_keys", "games"
   add_foreign_key "games", "accounts"
 end

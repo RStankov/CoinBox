@@ -9,12 +9,11 @@ class GamesController < ApplicationController
 
   def create
     @game = current_account.games.create game_params
-    respond_with @game, location: games_path
+    respond_with @game, location: @game.persisted? && game_path(@game)
   end
 
   def show
     @game = current_account.games.find game_id
-    redirect_to edit_game_path(@game)
   end
 
   def edit
