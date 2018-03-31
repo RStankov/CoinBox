@@ -12,7 +12,7 @@
     <div class="container-fluid p-0">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
-          <%= link_to 'CoinBox', root_path, class: 'navbar-brand' %>
+          <%= link_to current_user.account.name, root_path, class: 'navbar-brand' %>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

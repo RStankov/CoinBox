@@ -1,22 +1,24 @@
 class UsersController < ApplicationController
   def edit
-    @user = current_user
+    @form = ProfileForm.new(current_user)
   end
 
   def update
-    @user = current_user
-    @user.update user_params
-    respond_with @user, location: edit_user_path
+    @form = ProfileForm.new(current_user)
+    @form.update user_params
+
+    respond_with @form, location: edit_user_path
   end
 
   private
 
   def user_params
-    params.require(:user).permit(
+    params.require(:profile_form).permit(
       :name,
       :email,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      :account_name,
     )
   end
 end

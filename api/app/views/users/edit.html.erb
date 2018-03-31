@@ -1,11 +1,12 @@
 <% page.title 'Edit profile' %>
 
-<%= admin_form_for @user, url: user_path do |form| %>
+<%= admin_form_for @form, url: user_path do |form| %>
   <%= form.error_notification %>
   <%= form.input :name %>
   <%= form.input :email %>
   <%= form.input :password %>
   <%= form.input :password_confirmation %>
+  <%= form.input :account_name %>
   <%= form.buttons %>
 <% end %>
 
