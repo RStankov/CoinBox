@@ -15,13 +15,13 @@ class ConsumablesController < ApplicationController
   def update
     @consumable = update_record Consumable, form_params
 
-    respond_with @game, location: game_path(@consumable.game)
+    respond_with @consumable, location: game_path(@consumable.game)
   end
 
   def destroy
     @consumable = destroy_record Consumable
 
-    respond_with @game, location: game_path(@consumable.game)
+    respond_with @consumable, location: game_path(@consumable.game)
   end
 
   private

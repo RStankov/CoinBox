@@ -32,6 +32,28 @@
 
 <div class="card mb-3">
   <div class="card-header">
+    Transferables (<%= @game.transferables.size %>)
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <%= action_link 'New transferable', new_transferable_path(game_id: @game.id) %>
+    </div>
+    <% if @game.transferables.size > 0 %>
+      <%= table_for @game.transferables do |table| %>
+        <% table.column :identifier %>
+        <% table.column :name %>
+        <% table.number :value %>
+        <% table.actions do |transferable| %>
+          <%= edit_action edit_transferable_path(transferable) %>
+          <%= delete_action transferable_path(transferable) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
     API keys (<%= @game.api_keys.size %>)
   </div>
   <div class="card-body">
