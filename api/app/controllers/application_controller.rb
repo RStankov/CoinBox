@@ -4,4 +4,8 @@ class ApplicationController < ActionController::Base
   respond_to :html
 
   self.responder = ApplicationResponder
+
+  def current_account
+    @current_account ||= current_user.account
+  end
 end

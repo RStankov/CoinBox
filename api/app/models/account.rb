@@ -10,5 +10,9 @@
 class Account < ApplicationRecord
   belongs_to :user, inverse_of: :account
 
+  has_many :games, inverse_of: :account, dependent: :destroy
+
   validates :name, presence: true, uniqueness: true
+
+  attr_readonly :user_id
 end

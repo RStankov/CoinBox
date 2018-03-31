@@ -37,6 +37,10 @@
   .number {
     @extend .text-right;
   }
+
+  .small {
+    width: 1%;
+  }
 }
 
 a + a,

@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
   resource :user, only: %i(edit update)
 
+  resources :games
+
   root to: 'dashboard#index'
 end
