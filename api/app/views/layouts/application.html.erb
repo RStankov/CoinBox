@@ -68,7 +68,7 @@
               <%= page.actions_value %>
             </div>
           <% end %>
-          <h1><%= page.title_value %></h1>
+          <h1><%= page.title_value %><%= page.title_count if page.title_count? %></h1>
         </div>
       <% end %>
 
