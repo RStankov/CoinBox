@@ -1,0 +1,5 @@
+<%= admin_form_for @game do |form| %>
+  <%= form.error_notification %>
+  <%= form.input :name %>
+  <%= form.buttons cancel_path: games_path %>
+<% end %>

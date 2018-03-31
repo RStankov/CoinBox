@@ -52,7 +52,7 @@
       <% if page.breadcrumbs? %>
         <nav aria-label="breadcrumb mb-4">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><%= link_to 'Dashboard', admin_root_path %></li>
+            <li class="breadcrumb-item"><%= link_to 'Dashboard', root_path %></li>
             <% page.breadcrumbs_value.each do |name, link| %>
               <li class="breadcrumb-item"><%= link_to name, link %></li>
             <% end %>

@@ -1,0 +1,15 @@
+<% page.title 'Games', @games.size %>
+
+<% page.actions do %>
+  <%= action_link 'New game', new_game_path %>
+<% end %>
+
+<%= table_for @games do |table| %>
+  <% table.column :name do |game| %>
+    <%= link_to game.name, game_path(game) %>
+  <% end %>
+  <% table.actions do |game| %>
+    <%= edit_action edit_game_path(game) %>
+    <%= delete_action game_path(game) %>
+  <% end %>
+<% end %>
