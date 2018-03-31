@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_31_124637) do
+ActiveRecord::Schema.define(version: 2018_03_31_145649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -79,11 +79,32 @@ ActiveRecord::Schema.define(version: 2018_03_31_124637) do
     t.integer "api_keys_count", default: 0, null: false
     t.integer "consumables_count", default: 0, null: false
     t.integer "transferables_count", default: 0, null: false
+    t.integer "players_count", default: 0, null: false
     t.index ["account_id", "name"], name: "index_games_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_games_on_account_id"
   end
 
-  create_table "transferables", force: :cascade do |t|
+  create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "game_id", null: false
+    t.string "username", null: false
+    t.jsonb "properties", default: {}, null: false
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "email"], name: "index_players_on_game_id_and_email", unique: true
+    t.index ["game_id"], name: "index_players_on_game_id"
+  end
+
+  create_table "transferables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "game_id", null: false
     t.string "identifier", null: false
     t.string "name", null: false
@@ -91,6 +112,7 @@ ActiveRecord::Schema.define(version: 2018_03_31_124637) do
     t.jsonb "properties", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "purchasable", default: false, null: false
     t.index ["game_id", "identifier"], name: "index_transferables_on_game_id_and_identifier", unique: true
     t.index ["game_id"], name: "index_transferables_on_game_id"
   end
@@ -117,5 +139,6 @@ ActiveRecord::Schema.define(version: 2018_03_31_124637) do
   add_foreign_key "consumables", "games"
   add_foreign_key "game_api_keys", "games"
   add_foreign_key "games", "accounts"
+  add_foreign_key "players", "games"
   add_foreign_key "transferables", "games"
 end

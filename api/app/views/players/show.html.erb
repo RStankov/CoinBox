@@ -1,0 +1,16 @@
+<% page.title @player.username %>
+
+<% page.breadcrumbs ['Games', games_path], [@player.game.name, game_path(@player.game)] %>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">Id</th>
+      <td><%= @player.id %></td>
+    </tr>
+    <tr>
+      <th scope="row">Properties</th>
+      <td><code><%= @player.properties.to_json %></code></td>
+    </tr>
+  </tbody>
+</table>

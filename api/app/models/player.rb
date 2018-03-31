@@ -1,9 +1,11 @@
 # == Schema Information
 #
-# Table name: users
+# Table name: players
 #
-#  id                     :integer          not null, primary key
-#  name                   :string           not null
+#  id                     :uuid             not null, primary key
+#  game_id                :uuid             not null
+#  username               :string           not null
+#  properties             :jsonb            not null
 #  email                  :string           not null
 #  encrypted_password     :string           not null
 #  reset_password_token   :string
@@ -18,10 +20,12 @@
 #  updated_at             :datetime         not null
 #
 
-class User < ApplicationRecord
+class Player < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
-  validates :name, presence: true
+  belongs_to :game, inverse_of: :players, counter_cache: true
 
-  has_one :account, inverse_of: :user, dependent: :destroy
+  validates :username, presence: true, uniqueness: { scope: :game_id }
+
+  delegate :account, to: :game
 end

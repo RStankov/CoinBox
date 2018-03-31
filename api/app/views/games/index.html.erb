@@ -16,7 +16,11 @@
   <% table.number 'API keys' do |game| %>
     <%= game.api_keys_count %>
   <% end %>
+  <% table.number :consumables_count %>
+  <% table.number :transferables_count %>
+  <% table.number :players_count %>
   <% table.actions do |game| %>
+    <%= action_link 'Players', players_path(game_id: game.id) %>
     <%= edit_action edit_game_path(game) %>
     <%= delete_action game_path(game) %>
   <% end %>

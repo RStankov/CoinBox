@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :game_api_keys, only: %i(new create edit update destroy)
   resources :consumables, only: %i(new create edit update destroy)
   resources :transferables, only: %i(new create edit update destroy)
+  resources :players, only: %i(index show destroy)
 
   root to: 'dashboard#index'
 end

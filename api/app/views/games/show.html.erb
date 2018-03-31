@@ -42,6 +42,7 @@
       <%= table_for @game.transferables do |table| %>
         <% table.column :identifier %>
         <% table.column :name %>
+        <% table.boolean :purchasable, label: 'Purchasable' %>
         <% table.number :value %>
         <% table.actions do |transferable| %>
           <%= edit_action edit_transferable_path(transferable) %>
