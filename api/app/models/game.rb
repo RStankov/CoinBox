@@ -14,6 +14,7 @@ class Game < ApplicationRecord
   belongs_to :account, inverse_of: :games
 
   has_many :api_keys, class_name: 'GameApiKey', inverse_of: :game, dependent: :destroy
+  has_many :consumables, inverse_of: :game, dependent: :destroy
 
   has_one_attached :icon
 
