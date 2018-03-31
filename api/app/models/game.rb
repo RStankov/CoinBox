@@ -2,14 +2,13 @@
 #
 # Table name: games
 #
-#  id                  :uuid             not null, primary key
-#  account_id          :integer          not null
-#  name                :string           not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  api_keys_count      :integer          default(0), not null
-#  consumables_count   :integer          default(0), not null
-#  transferables_count :integer          default(0), not null
+#  id                :uuid             not null, primary key
+#  account_id        :integer          not null
+#  name              :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  api_keys_count    :integer          default(0), not null
+#  consumables_count :integer          default(0), not null
 #
 
 class Game < ApplicationRecord

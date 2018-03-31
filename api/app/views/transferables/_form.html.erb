@@ -5,5 +5,11 @@
   <%= form.input :name %>
   <%= form.input :value %>
   <%= form.image_input :image %>
+  <%= form.field_set 'Properties' do %>
+    <div data-json-editor="true" class="mb-3">
+      <div style="height: 400px; width: 400px"></div>
+      <input type="hidden" name="transferable[properties]" value="<%= form.object.properties.to_json %>" />
+    </div>
+  <% end %>
   <%= form.buttons cancel_path: game_path(form.object.game) %>
 <% end %>

@@ -21,4 +21,9 @@ class Transferable < ApplicationRecord
   has_one_attached :image
 
   delegate :account, to: :game
+
+  def properties=(value)
+    new_value = value.is_a?(String) ?  JSON.parse(value) : value
+    super new_value
+  end
 end

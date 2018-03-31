@@ -33,7 +33,7 @@ class TransferablesController < ApplicationController
       :name,
       :value,
       :image,
-      properties: {},
+      :properties,
     )
   end
 end

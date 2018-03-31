@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2018_03_31_124637) do
     t.string "identifier", null: false
     t.string "name", null: false
     t.integer "value", default: 0, null: false
-    t.jsonb "properties", default: "{}", null: false
+    t.jsonb "properties", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id", "identifier"], name: "index_transferables_on_game_id_and_identifier", unique: true

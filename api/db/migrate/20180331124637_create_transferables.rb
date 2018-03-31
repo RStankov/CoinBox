@@ -5,7 +5,7 @@ class CreateTransferables < ActiveRecord::Migration[5.2]
       t.string :identifier, null: false
       t.string :name, null: false
       t.integer :value, null: false, default: 0
-      t.jsonb :properties, null: false, default: '{}'
+      t.jsonb :properties, null: false, default: {}
       t.timestamps null: false
     end
 
