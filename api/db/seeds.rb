@@ -15,3 +15,7 @@ c2 = demo.consumables.find_by(identifier: 'coin') || demo.consumables.create!(id
 
 t1 = demo.transferables.find_by(identifier: 'dark_magician') || demo.transferables.create!(identifier: 'dark_magician', name: 'Dark Magician', value: 100, properties: { atk: 2500, def: 2100 })
 t2 = demo.transferables.find_by(identifier: 'blue_eye_dragon') || demo.transferables.create!(identifier: 'blue_eye_dragon', name: 'Blue-Eyes White Dragon', value: 200, properties: { atk: 3000, def: 2500 })
+
+player = demo.players.find_by_email('coinbox@example.com') || demo.players.create!(
+  username: 'TwoThirds', email: 'coinbox@example.com', password: '123456789'
+)
