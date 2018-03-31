@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_31_080803) do
+ActiveRecord::Schema.define(version: 2018_03_31_090200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 2018_03_31_080803) do
     t.string "name", null: false
     t.index ["name"], name: "index_accounts_on_name", unique: true
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "games", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "name", null: false
+    t.index ["account_id", "name"], name: "index_games_on_account_id_and_name", unique: true
+    t.index ["account_id"], name: "index_games_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +50,5 @@ ActiveRecord::Schema.define(version: 2018_03_31_080803) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "games", "accounts"
 end

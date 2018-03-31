@@ -5,3 +5,5 @@ user = User.find_by_email('coinbox@example.com') || User.create!(
 account = Account.find_by_name('CoinBox') || Account.create!(
   name: 'CoinBox', user: user
 )
+
+demo = account.games.find_or_create_by! name: 'Demo'

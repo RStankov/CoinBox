@@ -25,5 +25,5 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
-  has_one :account, inverse_of: :user
+  has_one :account, inverse_of: :user, dependent: :destroy
 end
