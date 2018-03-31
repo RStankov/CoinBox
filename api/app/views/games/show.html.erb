@@ -1,6 +1,6 @@
 <% page.title @game.name %>
 
-<% page.breadcrumbs ['Games', game_path], [@game.name, game_path(@game)] %>
+<% page.breadcrumbs ['Games', games_path], [@game.name, game_path(@game)] %>
 
 <% page.actions do %>
   <%= edit_action edit_game_path(@game) %>
