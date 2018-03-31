@@ -1,0 +1,12 @@
+<% page.title 'Players', @players.total_count %>
+
+<% page.breadcrumbs ['Games', games_path], [@game.name, game_path(@game)] %>
+
+<%= table_for @players do |table| %>
+  <% table.column :username do |player| %>
+    <%= link_to player.username, player_path(player) %>
+  <% end %>
+  <% table.actions do |player| %>
+    <%= delete_action player_path(player) %>
+  <% end %>
+<% end %>
