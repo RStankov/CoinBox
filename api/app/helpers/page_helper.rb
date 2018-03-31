@@ -53,7 +53,7 @@ module PageHelper
     end
 
     def actions_value
-      @actionds
+      @actions
     end
   end
 end
