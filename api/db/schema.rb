@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_31_100244) do
+ActiveRecord::Schema.define(version: 2018_03_31_124637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 2018_03_31_100244) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "consumables", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "game_id", null: false
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.integer "value", default: 0, null: false
+    t.boolean "tradeable", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "identifier"], name: "index_consumables_on_game_id_and_identifier", unique: true
+    t.index ["game_id", "name"], name: "index_consumables_on_game_id_and_name", unique: true
+    t.index ["game_id"], name: "index_consumables_on_game_id"
+  end
+
   create_table "game_api_keys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "game_id", null: false
     t.string "name", null: false
@@ -64,8 +77,22 @@ ActiveRecord::Schema.define(version: 2018_03_31_100244) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "api_keys_count", default: 0, null: false
+    t.integer "consumables_count", default: 0, null: false
+    t.integer "transferables_count", default: 0, null: false
     t.index ["account_id", "name"], name: "index_games_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_games_on_account_id"
+  end
+
+  create_table "transferables", force: :cascade do |t|
+    t.uuid "game_id", null: false
+    t.string "identifier", null: false
+    t.string "name", null: false
+    t.integer "value", default: 0, null: false
+    t.jsonb "properties", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id", "identifier"], name: "index_transferables_on_game_id_and_identifier", unique: true
+    t.index ["game_id"], name: "index_transferables_on_game_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,6 +114,8 @@ ActiveRecord::Schema.define(version: 2018_03_31_100244) do
   end
 
   add_foreign_key "accounts", "users"
+  add_foreign_key "consumables", "games"
   add_foreign_key "game_api_keys", "games"
   add_foreign_key "games", "accounts"
+  add_foreign_key "transferables", "games"
 end

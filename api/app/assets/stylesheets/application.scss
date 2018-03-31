@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import './jsoneditor';
 
 .simple_form {
   abbr {
@@ -36,6 +37,11 @@
 
   .number {
     @extend .text-right;
+  }
+
+  .boolean {
+    @extend .text-right;
+    width: 1%;
   }
 
   .small {

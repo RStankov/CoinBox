@@ -1,12 +1,56 @@
 <% page.title @game.name %>
 
-<% page.breadcrumbs ['Games', games_path], [@game.name, game_path(@game)] %>
+<% page.breadcrumbs ['Games', games_path] %>
 
 <% page.actions do %>
   <%= edit_action edit_game_path(@game) %>
   <%= delete_action game_path(@game) %>
 <% end %>
 
+<div class="card mb-3">
+  <div class="card-header">
+    Consumables (<%= @game.consumables.size %>)
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <%= action_link 'New consumable', new_consumable_path(game_id: @game.id) %>
+    </div>
+    <% if @game.consumables.size > 0 %>
+      <%= table_for @game.consumables do |table| %>
+        <% table.column :identifier %>
+        <% table.column :name %>
+        <% table.boolean :tradeable %>
+        <% table.number :value %>
+        <% table.actions do |consumable| %>
+          <%= edit_action edit_consumable_path(consumable) %>
+          <%= delete_action consumable_path(consumable) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    Transferables (<%= @game.transferables.size %>)
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <%= action_link 'New transferable', new_transferable_path(game_id: @game.id) %>
+    </div>
+    <% if @game.transferables.size > 0 %>
+      <%= table_for @game.transferables do |table| %>
+        <% table.column :identifier %>
+        <% table.column :name %>
+        <% table.number :value %>
+        <% table.actions do |transferable| %>
+          <%= edit_action edit_transferable_path(transferable) %>
+          <%= delete_action transferable_path(transferable) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 <div class="card mb-3">
   <div class="card-header">
