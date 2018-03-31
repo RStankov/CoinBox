@@ -28,7 +28,9 @@ export function navigateTo(routeName, params) {
   return NavigationActions.navigate({ routeName, params });
 }
 
-export const navigateBack = NavigationActions.back();
+export function navigateBack(params = {}) {
+  return NavigationActions.back(params);
+}
 
 // selector
 
