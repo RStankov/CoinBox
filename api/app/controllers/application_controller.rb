@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
     raise Pundit::NotAuthorizedError unless AccountPolicy.new(current_account, record).manage?
   end
 
-  def find_record(scope)
-    record = scope.find params[:id]
+  def find_record(scope, id = :none)
+    record = scope.find id == :none ? params[:id] : id
     ensure_can_manage record
     record
   end
