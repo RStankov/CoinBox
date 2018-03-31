@@ -8,16 +8,25 @@ module PageHelper
       @template = template
     end
 
-    def title(value)
+    def title(value, count = nil)
       @title = value
+      @title_count = count
     end
 
     def title?
       @title.present?
     end
 
+    def title_count?
+      !@title_count.nil?
+    end
+
     def title_value
       @title
+    end
+
+    def title_count
+      " (#{ @title_count })"
     end
 
     def breadcrumbs(*args)
@@ -34,7 +43,7 @@ module PageHelper
     end
 
     def actions
-      @actions = capture do
+      @actions = @template.capture do
         yield.reverse
       end
     end
