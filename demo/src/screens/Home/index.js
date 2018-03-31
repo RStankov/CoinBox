@@ -18,7 +18,15 @@ function Screen({ navigateTo }) {
           if (loading) return <Text>Loading...</Text>;
           if (error) return <Text>Error :(</Text>;
 
-          return <Text>{data.game.name}</Text>;
+          if (data.viewer) {
+            return (
+              <Text>
+                {data.viewer.username} is playing {data.game.name}
+              </Text>
+            );
+          } else {
+            return <Text>{data.game.name}</Text>;
+          }
         }}
       </Query>
     </CenterView>
