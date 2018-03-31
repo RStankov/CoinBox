@@ -26,6 +26,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "lodash": "^4.17.5",
+    "native-base": "^2.4.1",
     "react": "16.2.0",
     "react-apollo": "^2.1.1",
     "react-native": "0.52.0",
