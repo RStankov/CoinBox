@@ -11,4 +11,6 @@ class Game < ApplicationRecord
   belongs_to :account, inverse_of: :games
 
   validates :name, presence: true, uniqueness: { scope: :account }
+
+  attr_readonly :account_id
 end
