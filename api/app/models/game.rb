@@ -2,13 +2,15 @@
 #
 # Table name: games
 #
-#  id                :uuid             not null, primary key
-#  account_id        :integer          not null
-#  name              :string           not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  api_keys_count    :integer          default(0), not null
-#  consumables_count :integer          default(0), not null
+#  id                  :uuid             not null, primary key
+#  account_id          :integer          not null
+#  name                :string           not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  api_keys_count      :integer          default(0), not null
+#  consumables_count   :integer          default(0), not null
+#  transferables_count :integer          default(0), not null
+#  players_count       :integer          default(0), not null
 #
 
 class Game < ApplicationRecord
@@ -17,6 +19,7 @@ class Game < ApplicationRecord
   has_many :api_keys, class_name: 'GameApiKey', inverse_of: :game, dependent: :destroy
   has_many :consumables, inverse_of: :game, dependent: :destroy
   has_many :transferables, inverse_of: :game, dependent: :destroy
+  has_many :players, inverse_of: :game, dependent: :destroy
 
   has_one_attached :icon
 

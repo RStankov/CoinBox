@@ -1,6 +1,6 @@
 class CreateTransferables < ActiveRecord::Migration[5.2]
   def change
-    create_table :transferables do |t|
+    create_table :transferables, id: :uuid do |t|
       t.references :game, null: false, foreign_key: true, index: true, type: :uuid
       t.string :identifier, null: false
       t.string :name, null: false

@@ -13,7 +13,7 @@
 #
 
 class Consumable < ApplicationRecord
-  belongs_to :game, inverse_of: :consumables
+  belongs_to :game, inverse_of: :consumables, counter_cache: true
 
   validates :identifier, presence: true, uniqueness: { scope: :game_id }
   validates :name, presence: true, uniqueness: { scope: :game_id }

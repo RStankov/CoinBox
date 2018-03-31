@@ -2,7 +2,7 @@
 #
 # Table name: transferables
 #
-#  id         :integer          not null, primary key
+#  id         :uuid             not null, primary key
 #  game_id    :uuid             not null
 #  identifier :string           not null
 #  name       :string           not null
@@ -13,7 +13,7 @@
 #
 
 class Transferable < ApplicationRecord
-  belongs_to :game, inverse_of: :transferables
+  belongs_to :game, inverse_of: :transferables, counter_cache: true
 
   validates :identifier, presence: true, uniqueness: { scope: :game_id }
   validates :name, presence: true
