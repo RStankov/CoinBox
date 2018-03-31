@@ -13,6 +13,9 @@
   <% table.column :name do |game| %>
     <%= link_to game.name, game_path(game) %>
   <% end %>
+  <% table.number 'API keys' do |game| %>
+    <%= game.api_keys_count %>
+  <% end %>
   <% table.actions do |game| %>
     <%= edit_action edit_game_path(game) %>
     <%= delete_action game_path(game) %>

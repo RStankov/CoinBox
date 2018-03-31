@@ -1,0 +1,6 @@
+<%= admin_form_for @api_key do |form| %>
+  <%= form.error_notification %>
+  <%= form.hidden_field :game_id %>
+  <%= form.input :name %>
+  <%= form.buttons cancel_path: game_path(@api_key.game) %>
+<% end %>

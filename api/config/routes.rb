@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resource :user, only: %i(edit update)
 
   resources :games
+  resources :game_api_keys, only: %i(new create edit update destroy)
 
   root to: 'dashboard#index'
 end

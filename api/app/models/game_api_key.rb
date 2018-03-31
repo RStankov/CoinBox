@@ -21,6 +21,8 @@ class GameApiKey < ApplicationRecord
 
   before_validation :generate_token, on: :create
 
+  delegate :account, to: :game
+
   private
 
   def generate_token

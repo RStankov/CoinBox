@@ -14,7 +14,6 @@ class GamesController < ApplicationController
 
   def show
     @game = current_account.games.find game_id
-    redirect_to edit_game_path(@game)
   end
 
   def edit
