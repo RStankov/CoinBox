@@ -1,0 +1,60 @@
+@import 'bootstrap';
+
+.simple_form {
+  abbr {
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .has-error {
+    @extend .text-danger;
+
+    input, textarea, select {
+      @extend .is-invalid;
+    }
+  }
+
+  .boolean {
+    input[type="radio"], input[type="checkbox"] {
+      @extend .mr-1;
+      position: relative;
+      top: -1px;
+    }
+  }
+}
+
+.table {
+  th, td {
+    vertical-align: middle !important;
+  }
+
+  .table-actions {
+    @extend .text-right;
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  .number {
+    @extend .text-right;
+  }
+}
+
+a + a,
+.btn + .btn { @extend .ml-2; }
+
+
+.pagination[aria-label="pager"] {
+  @extend .justify-content-center;
+
+  .page, .next, .last, .first, .prev { @extend .page-item; @extend .page-link; }
+  .page.current { @extend .active; }
+}
+
+main {
+  margin-bottom: 20px;
+}
+
+.sign-in {
+  max-width: 250px;
+  margin: 60px auto 0;
+}

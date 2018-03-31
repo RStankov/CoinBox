@@ -1,0 +1,6 @@
+{
+  "app/graphql/types/*.rb": { "type": "type" },
+  "app/graphql/mutations/*.rb": { "type": "mutation" },
+  "app/graphql/resolvers/*.rb": { "type": "resolvers" },
+}
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= page.title_value %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
+  </head>
+
+  <body>
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+          <%= link_to 'CoinBox', root_path, class: 'navbar-brand' %>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <%= link_to 'Path', '#', class: 'nav-link' %>
+              </li>
+            </ul>
+            <ul class="navbar-nav mr-right">
+              <li class="nav-item">
+                <%= link_to 'Profile', edit_user_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <main class="container">
+      <% if alert %>
+        <div class="alert alert-danger mb-4" role="alert">
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <% if notice %>
+        <div class="alert alert-success mb-4" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if page.breadcrumbs? %>
+        <nav aria-label="breadcrumb mb-4">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><%= link_to 'Dashboard', admin_root_path %></li>
+            <% page.breadcrumbs_value.each do |name, link| %>
+              <li class="breadcrumb-item"><%= link_to name, link %></li>
+            <% end %>
+            <li class="breadcrumb-item active" aria-current="page"><%= page.title_value %></li>
+          </ol>
+        </nav>
+      <% end %>
+
+      <% if page.title? %>
+        <div>
+          <% if page.actions? %>
+            <div class="float-right pt-2">
+              <%= page.actions_value %>
+            </div>
+          <% end %>
+          <h1><%= page.title_value %></h1>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
