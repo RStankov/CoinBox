@@ -5,6 +5,11 @@
 <% end %>
 
 <%= table_for @games do |table| %>
+  <% table.column :icon, class: 'small' do |game| %>
+    <%= link_to game_path(game) do %>
+      <%= attachment_image_tag game.icon, height: 50 %>
+    <% end %>
+  <% end %>
   <% table.column :name do |game| %>
     <%= link_to game.name, game_path(game) %>
   <% end %>

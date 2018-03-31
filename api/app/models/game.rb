@@ -13,4 +13,6 @@ class Game < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :account }
 
   attr_readonly :account_id
+
+  has_one_attached :icon
 end
