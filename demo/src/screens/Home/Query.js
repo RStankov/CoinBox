@@ -2,6 +2,9 @@ import gql from 'graphql-tag';
 
 export default gql`
   {
-    testField
+    game {
+      id
+      name
+    }
   }
 `;

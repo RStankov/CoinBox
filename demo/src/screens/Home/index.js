@@ -18,7 +18,7 @@ function Screen({ navigateTo }) {
           if (loading) return <Text>Loading...</Text>;
           if (error) return <Text>Error :(</Text>;
 
-          return <Text>{data.testField}</Text>;
+          return <Text>{data.game.name}</Text>;
         }}
       </Query>
     </CenterView>

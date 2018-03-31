@@ -8,7 +8,7 @@ account = Account.find_by_name('CoinBox') || Account.create!(
 
 demo = account.games.find_or_create_by! name: 'Demo'
 
-api_key = demo.api_keys.find_or_create_by! name: 'iOS'
+api_key = demo.api_keys.find_by(name: 'iOS') || demo.api_key.create! name: 'iOS', token: 'cfa15679bebeda6035c9d08676b9f5bf6b234c06'
 
 c1 = demo.consumables.find_by(identifier: 'exp') || demo.consumables.create!(identifier: 'exp', name: 'Expirience', value: 0, tradeable: false)
 c2 = demo.consumables.find_by(identifier: 'coin') || demo.consumables.create!(identifier: 'coin', name: 'Coin', value: 1, tradeable: true)
