@@ -1,15 +1,16 @@
-class :Resolvers::Mutation
+class Resolvers::Mutation
   def self.call(object, inputs, context)
     new(object, inputs, context).call
   end
 
-  attr_reader :object, :inputs, :context, :current_user
+  attr_reader :object, :inputs, :context, :current_player, :current_game
 
   def initialize(object, inputs, context)
     @object = object
     @inputs = HashWithIndifferentAccess.new(inputs.to_h)
     @context = context
-    @current_user = context[:current_user]
+    @current_player = context[:current_player]
+    @current_game = context[:current_game]
   end
 
   def perform
@@ -103,7 +104,7 @@ class :Resolvers::Mutation
                     end
 
                     return_field :node, returns if returns
-                    return_field :errors, !types[!Graph::Types::ErrorType]
+                    return_field :errors, !types[!Types::ErrorType]
 
                     resolve resolver
                   end
