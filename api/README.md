@@ -7,7 +7,7 @@
 rails db:seed
 ```
 
-Default user: `admin@example.com` / `123456789`
+Default user: `coinbox@example.com` / `123456789`
 
 ## Running
 
