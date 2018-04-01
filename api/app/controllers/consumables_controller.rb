@@ -33,6 +33,7 @@ class ConsumablesController < ApplicationController
       :identifier,
       :value,
       :tradeable,
+      :primary,
       :image,
     )
   end

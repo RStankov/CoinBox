@@ -10,6 +10,7 @@
 #  tradeable  :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  primary    :boolean          default(FALSE), not null
 #
 
 class Consumable < ApplicationRecord
@@ -21,4 +22,16 @@ class Consumable < ApplicationRecord
   has_one_attached :image
 
   delegate :account, to: :game
+
+  scope :ordered, -> { order(identifier: :desc) }
+
+  after_save :ensure_only_one_primary
+
+  private
+
+  def ensure_only_one_primary
+    return unless primary?
+
+    game.consumables.where.not(id: id).where(primary: true).update_all primary: false
+  end
 end
