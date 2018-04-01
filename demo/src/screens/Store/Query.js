@@ -1,17 +1,19 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  {
+  query {
+    viewer {
+      id
+    }
     game {
       id
-      name
       store {
         edges {
           node {
             id
             name
+            image(size: 40)
             properties
-            image(size: 400)
             price {
               amount
               consumable {
@@ -20,6 +22,10 @@ export default gql`
               }
             }
           }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
         }
       }
     }

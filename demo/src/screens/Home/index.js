@@ -19,8 +19,12 @@ class Screen extends React.Component {
     this.props.data.refetch();
   };
 
+  handleStore = () => {
+    this.props.navigateTo('Store');
+  };
+
   render() {
-    const { navigateTo, data: { viewer, game } } = this.props;
+    const { data: { viewer, game } } = this.props;
 
     return (
       <CenterView>
@@ -28,6 +32,7 @@ class Screen extends React.Component {
         {viewer ? (
           <View>
             <Text>Player: {viewer.username}</Text>
+            <Button title="Store" onPress={this.handleStore} />
             <Button title="Sign Out" onPress={this.handleSignOut} />
           </View>
         ) : (
@@ -38,12 +43,14 @@ class Screen extends React.Component {
   }
 }
 
-Screen.navigationOptions = {
-  title: 'Home',
-};
-
-export default compose(
+const Container = compose(
   graphql(QUERY),
   withActions({ navigateTo }),
   withLoading,
 )(Screen);
+
+Container.navigationOptions = {
+  title: 'Demo',
+};
+
+export default Container;
