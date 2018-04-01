@@ -15,7 +15,7 @@ class Resolvers::ImageResolver < GraphQL::Function
 
     size = args[:size]
     variant = size ? attachment.variant(smart_resize(size * 2)) : attachment
-    variant.processed.service_url
+    "http://localhost:3000#{ variant.processed.service_url }"
   end
 
   private
