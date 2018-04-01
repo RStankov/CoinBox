@@ -4,4 +4,5 @@ Types::PlayerType = GraphQL::ObjectType.define do
   field :id, !types.String
   field :username, !types.String
   field :properties, !Types::JsonType
+  field :wallet, function: Resolvers::PlayerWalletResolver.new
 end

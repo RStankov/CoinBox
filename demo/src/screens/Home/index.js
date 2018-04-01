@@ -23,6 +23,10 @@ class Screen extends React.Component {
     this.props.navigateTo('Store');
   };
 
+  handleDeck = () => {
+    this.props.navigateTo('Deck');
+  };
+
   render() {
     const { data: { viewer, game } } = this.props;
 
@@ -33,6 +37,7 @@ class Screen extends React.Component {
           <View>
             <Text>Player: {viewer.username}</Text>
             <Button title="Store" onPress={this.handleStore} />
+            <Button title="Deck" onPress={this.handleDeck} />
             <Button title="Sign Out" onPress={this.handleSignOut} />
           </View>
         ) : (
