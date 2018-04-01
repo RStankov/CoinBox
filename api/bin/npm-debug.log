@@ -1,0 +1,43 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/vtasev/.nvm/versions/node/v0.12.18/bin/node',
+1 verbose cli   '/Users/vtasev/.nvm/versions/node/v0.12.18/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'yarn' ]
+2 info using npm@2.15.11
+3 info using node@v0.12.18
+4 verbose install initial load of /Users/vtasev/.nvm/versions/node/v0.12.18/lib/package.json
+5 verbose readDependencies loading dependencies from /Users/vtasev/.nvm/versions/node/v0.12.18/lib/package.json
+6 silly cache add args [ 'yarn', null ]
+7 verbose cache add spec yarn
+8 silly cache add parsed spec { raw: 'yarn',
+8 silly cache add   scope: null,
+8 silly cache add   name: null,
+8 silly cache add   rawSpec: 'yarn',
+8 silly cache add   spec: '/Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn',
+8 silly cache add   type: 'local' }
+9 silly addLocalTarball shasum (computed) d985b24d756be4159d9f127c6c5745fa66b658f5
+10 verbose addTmpTarball /Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn not in flight; adding
+11 verbose correctMkdir /Users/vtasev/.npm correctMkdir not in flight; initializing
+12 verbose addTmpTarball validating metadata from /Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn
+13 verbose tar unpack /Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn
+14 verbose tar unpacking to /var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056
+15 silly gentlyRm /var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056 is being purged
+16 verbose gentlyRm don't care about contents; nuking /var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056
+17 silly gunzTarPerm modes [ '755', '644' ]
+18 error not a package /Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn
+19 error addLocal Could not install /Users/vtasev/Documents/Projects/CoinBox/api/bin/yarn
+20 verbose stack Error: ENOENT, open '/var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056/package.json'
+20 verbose stack     at Error (native)
+21 verbose cwd /Users/vtasev/Documents/Projects/CoinBox/api/bin
+22 error Darwin 17.5.0
+23 error argv "/Users/vtasev/.nvm/versions/node/v0.12.18/bin/node" "/Users/vtasev/.nvm/versions/node/v0.12.18/bin/npm" "install" "-g" "yarn"
+24 error node v0.12.18
+25 error npm  v2.15.11
+26 error path /var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056/package.json
+27 error code ENOENT
+28 error errno -2
+29 error enoent ENOENT, open '/var/folders/4h/t2qzsq6j45bbxj753fx949p40000gn/T/npm-82462-b0806883/unpack-a4d341fe3056/package.json'
+29 error enoent This is most likely not a problem with npm itself
+29 error enoent and is related to npm not being able to find a file.
+30 verbose exit [ -2, true ]
