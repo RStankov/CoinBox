@@ -1,17 +1,15 @@
 class Resolvers::PlayerWalletResolver < GraphQL::Function
-  type do
-    name 'Wallet'
-
-    # TODO(rstankov): Expose consumables
-    connection :transferables, Types::TransferableType.connection_type
-  end
+  type Types::PlayerWalletType
 
   def call(obj, _args, ctx)
     return nil if obj != ctx[:current_player]
 
-    # TODO(rstankov): User ledger
+    # TODO(rstankov): User ledger api
     OpenStruct.new(
-      transferables: obj.game.transferables
+      transferables: obj.game.transferables,
+      consumables: obj.game.consumables.map do |c|
+        OpenStruct.new amount: 10, consumable: c
+      end
     )
   end
 end
