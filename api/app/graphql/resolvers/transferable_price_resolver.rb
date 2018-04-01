@@ -6,7 +6,7 @@ class Resolvers::TransferablePriceResolver < GraphQL::Function
 
     if consumable
       OpenStruct.new(
-        amount: (obj.value.to_f / consumable.value).round,
+        amount: consumable.amount_for_transfarable(obj),
         consumable: consumable,
       )
     else
