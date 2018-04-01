@@ -2,42 +2,23 @@ import QUERY from './Query';
 import React from 'react';
 import compose from 'utils/compose';
 import withLoading from 'utils/withLoading';
-import { View, Text, Button, FlatList, StyleSheet, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, Image } from 'react-native';
 import { graphql } from 'react-apollo';
-import { getNodes, hasNextPage, loadMore } from 'utils/graphql';
+import List from 'components/List';
 
 class Screen extends React.Component {
-  state = { isLoading: false };
-
-  loadMore = () => {
-    if (this.state.isLoading || !hasNextPage(this.props.data.game.store)) {
-      return;
-    }
-
-    this.setState({ isLoading: true });
-
-    loadMore({ data: this.props.data, connectionPath: 'game.store' });
-  };
-
   render() {
-    const { data: { game } } = this.props;
-
     return (
-      <FlatList
-        data={getNodes(game.store)}
-        renderItem={renderRow}
-        keyExtractor={keyExtractor}
-        onEndReached={this.loadMore}
+      <List
+        data={this.props.data}
+        connectionPath="game.store"
+        renderItem={renderItem}
       />
     );
   }
 }
 
-function keyExtractor(item) {
-  return item.id;
-}
-
-function renderRow({ item }) {
+function renderItem({ item }) {
   return (
     <View style={styles.container} key={item.id}>
       {item.image ? (
