@@ -2,9 +2,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	var consumables_chaincode = {};
 
 	consumables_chaincode.check_if_already_instantiated = function (options, cb) {
-		console.log('');
-		logger.info('Checking for chaincode...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -30,9 +27,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.check_version = function (options, cb) {
-		console.log('');
-		logger.info('Checking chaincode and ui compatibility...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -58,9 +52,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.create_a_consumable = function (options, cb) {
-		console.log('');
-		logger.info('Creating a consumable...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -73,8 +64,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 			smartContract_function: 'init_consumable',
 			smartContract_args: [
 				'm' + leftPad(Date.now() + randStr(5), 19),
-				options.args.color,
-				options.args.size,
 				options.args.Player_id
 			],
 		};
@@ -103,9 +92,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.set_consumable_player = function (options, cb) {
-		console.log('');
-		logger.info('Setting consumable Player...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -125,9 +111,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.delete_consumable = function (options, cb) {
-		console.log('');
-		logger.info('Deleting a consumable...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -180,9 +163,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.register_player = function (options, cb) {
-		console.log('');
-		logger.info('Creating a consumable Player...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -209,9 +189,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 
 	consumables_chaincode.get_player = function (options, cb) {
 		var full_uid = build_player_name(options.args.consumable_player);
-		console.log('');
-		logger.info('Fetching Player ' + full_uid + ' list...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -225,9 +202,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.get_player_list = function (options, cb) {
-		console.log('');
-		logger.info('Fetching Player index list...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -241,9 +215,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.disable_player = function (options, cb) {
-		console.log('');
-		logger.info('Disabling a consumable Player...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -272,9 +243,6 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 	};
 
 	consumables_chaincode.read_everything = function (options, cb) {
-		console.log('');
-		logger.info('Fetching EVERYTHING...');
-
 		var opts = {
 			peer_urls: g_options.peer_urls,
 			peer_tls_opts: g_options.peer_tls_opts,
@@ -301,8 +269,8 @@ module.exports = function (enrollObj, g_options, fcw, logger) {
 
 	function randStr(length) {
 		var text = '';
-		var possible = 'abcdefghijkmnpqrstuvwxyz0123456789ABCDEFGHJKMNPQRSTUVWXYZ';
-		for (var i = 0; i < length; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
+		var regex = 'abcdefghijkmnpqrstuvwxyz0123456789ABCDEFGHJKMNPQRSTUVWXYZ';
+		for (var i = 0; i < length; i++) text += regex.charAt(Math.floor(Math.random() * regex.length));
 		return text;
 	}
 

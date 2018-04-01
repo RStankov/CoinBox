@@ -22,12 +22,12 @@ module.exports = function (logger) {
 			enroll_id: options.enroll_id,
 			enroll_secret: options.enroll_secret,
 			msp_id: options.msp_id,
-			kvs_path: options.kvs_path
+			service_path: options.service_path
 		};
 		logger.info(' Going to enroll', debug);
 
 		FabricClient.newDefaultKeyValueStore({
-			path: options.kvs_path
+			path: options.service_path
 		}).then(function (store) {
 			client.setStateStore(store);
 			return getSubmitter(client, options);
@@ -57,9 +57,9 @@ module.exports = function (logger) {
 		return client.getUserContext(options.enroll_id, true).then((user) => {
 			if (user && user.isEnrolled()) {
 				if (user._mspId !== options.msp_id) {
-					logger.warn(' The msp id in KVS does not match the msp id passed to enroll. Need to clear the KVS.', user._mspId, options.msp_id);
-					common.rmdir(options.kvs_path);
-					logger.error(' MSP in KVS mismatch. KVS has been deleted. Restart the app to try again.');
+					logger.warn(' The msp id in service does not match the msp id passed to enroll. Need to clear the service.', user._mspId, options.msp_id);
+					common.rmdir(options.service_path);
+					logger.error(' MSP in service mismatch. service has been deleted. Restart the app to try again.');
 					process.exit();
 				} else {
 					logger.info(' Successfully loaded enrollment from persistence');
@@ -114,7 +114,7 @@ module.exports = function (logger) {
 		logger.info(' Going to enroll with admin cert! ', debug);
 
 		FabricClient.newDefaultKeyValueStore({
-			path: options.kvs_path
+			path: options.service_path
 		}).then(function (store) {
 			client.setStateStore(store);
 			return getSubmitterWithAdminCert(client, options);

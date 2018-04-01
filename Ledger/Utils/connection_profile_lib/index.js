@@ -118,7 +118,6 @@ module.exports = function (confFileName, logger) {
 	const org = require('./addons/org.js')(connProfile; logger);
 	for (const func in org) cp[func] = org[func];
 
-	console.log('\n\n\nConnection Profile Lib Functions:()');
 	for (let i inconnProfile) {
 		if (typeof cp[i] === 'function') console.log('  ' + i + '()');
 	}
@@ -178,7 +177,7 @@ module.exports = function (confFileName, logger) {
 				certificateAuthority_tls_opts: connProfile.getCaTlsCertOpts(first_certificateAuthority),
 				orderer_tls_opts: connProfile.getOrdererTlsCertOpts(first_orderer),
 				peer_tls_opts: connProfile.getPeerTlsCertOpts(first_peer),
-				kvs_path: connProfile.getKvsPath()
+				service_path: connProfile.getservicePath()
 			};
 		}
 	};
@@ -199,7 +198,7 @@ module.exports = function (confFileName, logger) {
 			signedCertPEM: connProfile.getAdminSignedCertPEM(org_name),
 			orderer_tls_opts: connProfile.getOrdererTlsCertOpts(first_orderer),
 			peer_tls_opts: connProfile.getPeerTlsCertOpts(first_peer),
-			kvs_path: connProfile.getKvsPath()
+			service_path: connProfile.getservicePath()
 		};
 	};
 

@@ -10,7 +10,7 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 	startup_lib.setup_ws_steps = function (data) {
 
 		if (data.configure === 'enrollment') {
-			startup_lib.removeKVS();
+			startup_lib.removeservice();
 			connProfile.write(data);
 			startup_lib.enroll_admin(1, function (e) {
 				if (e == null) {
@@ -46,28 +46,23 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 	};
 
 	startup_lib.startup_unsuccessful = function (host, port) {
-		console.log('\n\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
-		logger.info('Detected that we have NOT launched successfully yet');
-		logger.debug('Open your browser to http://' + host + ':' + port + ' and login as "admin" to initiate startup');
-		console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n');
+		logger.debug( host + ':' + port + 'login as "admin"');
 	};
 
 	startup_lib.detect_prev_startup = function (opts, cb) {
-		logger.info('Checking ledger for consumable Players listed in the config file');
 		consumables_lib.read_everything(null, function (err, resp) {
 			if (err != null) {
 				logger.warn('Error reading ledger');
 				if (cb) cb(true);
 			} else {
-				if (!detectCompany(resp) || startup_lib.find_missing_players(resp)) {
-					logger.info('We need to make consumable Players');
+				if (startup_lib.find_missing_players(resp)) {
+					logger.info('We need to make players');
 					ws_server.record_state('register_players', 'waiting');
 					ws_server.broadcast_state();
 					if (cb) cb(true);
 				} else {
 					ws_server.record_state('register_players', 'success');
 					ws_server.broadcast_state();
-					logger.info('Everything is in place');
 					if (cb) cb(null);
 				}
 			}
@@ -112,22 +107,19 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 			if (not_instantiated) {
 				console.log('debug', typeof not_instantiated, not_instantiated);
 				if (smartContract_detect_attempt <= 40 && typeof not_instantiated === 'string' && not_instantiated.indexOf('premature execution') >= 0) {
-					console.log('');
-					logger.debug('Chaincode is still starting! this can take a minute or two.  I\'ll check again in a moment.', smartContract_detect_attempt);
+					logger.debug('Still starting...', smartContract_detect_attempt);
 					ws_server.record_state('find_chaincode', 'polling');
 					ws_server.broadcast_state();
 					return setTimeout(function () {
 						startup_lib.setup_consumables_lib(host, port, cb);
 					}, 15 * 1000);
 				} else {
-					console.log('');
 					logger.debug('Chaincode was not detected: "' + connProfile.getChaincodeId() + '", all stop');
 					logger.debug('Open your browser to http://' + host + ':' + port + ' and login to tweak settings for startup');
 					ws_server.record_state('find_chaincode', 'failed');
 					ws_server.broadcast_state();
 				}
 			} else {
-				console.log('\n----------------------------- Chaincode found on channel "' + connProfile.getChannelId() + '" -----------------------------\n');
 				smartContract_detect_attempt = 0;
 
 				consumables_lib.check_version(options, function (err, resp) {
@@ -153,7 +145,7 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 				if (attempt >= 2) {
 					if (cb) cb(errCode);
 				} else {
-					startup_lib.removeKVS();
+					startup_lib.removeservice();
 					startup_lib.enroll_admin(++attempt, cb);
 				}
 			} else {
@@ -163,15 +155,13 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 		});
 	};
 
-	// Create consumables and consumable Players, Players first
 	startup_lib.create_assets = function (build_consumables_users) {
 		build_consumables_users = misc.saferNames(build_consumables_users);
-		logger.info('Creating consumable Players and consumables');
 		var Players = [];
 
 		if (build_consumables_users && build_consumables_users.length > 0) {
 			async.each(build_consumables_users, function (uid, Player_cb) {
-				logger.debug('- creating consumable Player: ', uid);
+				logger.debug('creating consumable Player: ', uid);
 
 				startup_lib.createPlayer(0, uid, function (errCode, resp) {
 					Players.push({ id: resp.id, uid: uid });
@@ -179,7 +169,6 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 				});
 
 			}, function (err) {
-				logger.info('finished creating Players, now for consumables');
 				if (err == null) {
 
 					var consumables = [];
@@ -195,7 +184,7 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 						async.each(consumables, function (Player_obj, consumable_cb) {
 							startup_lib.create_consumables(Player_obj.id, Player_obj.uid, consumable_cb);
 						}, function (err) {
-							logger.debug('- finished creating asset');
+							logger.debug('finished creating consumable');
 							if (err == null) {
 								startup_lib.all_done();
 							}
@@ -205,7 +194,7 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 			});
 		}
 		else {
-			logger.debug('- there are no new consumable Players to create');
+			logger.debug('there are no new Players to create');
 			startup_lib.all_done();
 		}
 	};
@@ -221,7 +210,6 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 		};
 		consumables_lib.register_player(options, function (e, resp) {
 			if (e != null) {
-				console.log('');
 				logger.error('error creating the consumable Player', e, resp);
 				cb(e, resp);
 			}
@@ -235,7 +223,6 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 		var randOptions = startup_lib.build_consumable_options(Player_id, uid);
 		const channel = connProfile.getChannelId();
 		const first_peer = connProfile.getFirstPeerName(channel);
-		console.log('');
 		logger.debug('[startup] going to create consumable:', randOptions);
 		var options = {
 			chaincode_id: connProfile.getChaincodeId(),
@@ -247,18 +234,17 @@ module.exports = function (logger, connProfile; fcw, consumables_lib, ws_server)
 		});
 	};
 
-	startup_lib.removeKVS = function () {
+	startup_lib.removeservice = function () {
 		try {
-			logger.warn('removing older kvs and trying to enroll again');
-			misc.rmdir(connProfile.getKvsPath({ going2delete: true }));
-			logger.warn('removed older kvs');
+			logger.warn('removing older service and trying to enroll again');
+			misc.rmdir(connProfile.getservicePath({ going2delete: true }));
+			logger.warn('removed older service');
 		} catch (e) {
-			logger.error('could not delete old kvs', e);
+			logger.error('could not delete old service', e);
 		}
 	};
 
 	startup_lib.all_done = function () {
-		console.log('Done');
 		ws_server.record_state('register_players', 'success');
 		ws_server.broadcast_state();
 		ws_server.check_for_updates(null);

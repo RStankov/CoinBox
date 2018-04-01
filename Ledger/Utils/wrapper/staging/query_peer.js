@@ -47,7 +47,6 @@ module.exports = function (logger) {
 	};
 
 	query_peer.query_channel_members = function (obj, options, cb) {
-		console.log('');
 		logger.debug(' Querying Channel Members');
 		var channel = obj.channel;
 
@@ -63,7 +62,6 @@ module.exports = function (logger) {
 	};
 
 	query_peer.query_list_channels = function (obj, options, cb) {
-		console.log('');
 		logger.debug('List Channels:', options);
 		var client = obj.client;
 
@@ -144,7 +142,7 @@ module.exports = function (logger) {
 	function parse_if_instantiate(data) {
 		try {
 			for (var i in data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset) {
-				if (data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].namespace === 'lscc') {	//skip system chaincode
+				if (data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].namespace === 'lscc') {
 					if (data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].rwset.reads[0].version) {
 						return false;
 					} else {
@@ -160,7 +158,7 @@ module.exports = function (logger) {
 	function parse_4_chaincode_id(data) {
 		try {
 			for (var i in data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset) {
-				if (data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].namespace !== 'lscc') {	//skip system chaincode
+				if (data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].namespace !== 'lscc') {
 					return data.actions[0].payload.action.proposal_response_payload.extension.results.ns_rwset[i].namespace;
 				}
 			}
@@ -248,8 +246,6 @@ module.exports = function (logger) {
 	query_peer.query_installed = function (obj, options, cb) {
 		logger.debug(' Querying Installed Chaincodes\n');
 		var channel = obj.channel;
-
-		// send proposal to peer
 		channel.queryInstalledChaincodes(
 			new Peer(options.peer_urls[0], options.peer_tls_opts)
 		).then(function (resp) {

@@ -15,7 +15,7 @@ module.exports = function (connProfile, logger) {
 		return ret;
 	};
 
-	helper.getKvsPath = function (opts) {
+	helper.getservicePath = function (opts) {
 		const id = connProfile.makeUniqueId();
 		const default_path = path.join(os.homedir(), '.hfc-key-store/', id);
 
@@ -24,10 +24,10 @@ module.exports = function (connProfile, logger) {
 		}
 
 		if (connProfile.creds.client && connProfile.creds.client.credentialStore) {
-			const kvs_path = connProfile.creds.client.credentialStore.path;
-			let ret = path.join(__dirname, '../../../config/' + kvs_path + '/');
-			if (kvs_path.indexOf('/') === 0) {
-				ret = kvs_path;
+			const service_path = connProfile.creds.client.credentialStore.path;
+			let ret = path.join(__dirname, '../../../config/' + service_path + '/');
+			if (service_path.indexOf('/') === 0) {
+				ret = service_path;
 			}
 			return ret;
 		} else {
