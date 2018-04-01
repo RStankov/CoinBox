@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { countNodes } from 'utils/graphql';
 
 export default function Wallet({ player, children }) {
   const wallet = getWallet(player);
@@ -9,6 +10,7 @@ export default function Wallet({ player, children }) {
       <Text style={styles.wallet}>Wallet</Text>
       <Text>Experience: {wallet.exp}</Text>
       <Text>Coins: {wallet.coin}</Text>
+      <Text>Cards: {countNodes(player.wallet.transferables)}</Text>
     </View>
   );
 }

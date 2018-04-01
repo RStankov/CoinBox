@@ -11,6 +11,17 @@ export default gql`
           id
         }
       }
+      transferables {
+        edges {
+          node {
+            id
+          }
+        }
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+      }
     }
   }
 `;

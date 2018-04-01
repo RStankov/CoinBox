@@ -13,6 +13,14 @@ export function hasNextPage(connection) {
   return connection.pageInfo.hasNextPage;
 }
 
+export function countNodes(data) {
+  if (!data || !data.edges) {
+    return 0;
+  }
+
+  return data.edges.length;
+}
+
 export function loadMore({ data, connectionPath, cursorName, variables }) {
   return data.fetchMore({
     variables: {
