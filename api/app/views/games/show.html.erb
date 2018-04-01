@@ -16,9 +16,10 @@
       <%= action_link 'New consumable', new_consumable_path(game_id: @game.id) %>
     </div>
     <% if @game.consumables.size > 0 %>
-      <%= table_for @game.consumables do |table| %>
+      <%= table_for @game.consumables.ordered do |table| %>
         <% table.column :identifier %>
         <% table.column :name %>
+        <% table.boolean :primary %>
         <% table.boolean :tradeable %>
         <% table.number :value %>
         <% table.actions do |consumable| %>
@@ -39,7 +40,7 @@
       <%= action_link 'New transferable', new_transferable_path(game_id: @game.id) %>
     </div>
     <% if @game.transferables.size > 0 %>
-      <%= table_for @game.transferables do |table| %>
+      <%= table_for @game.transferables.ordered do |table| %>
         <% table.column :identifier %>
         <% table.column :name %>
         <% table.boolean :purchasable, label: 'Purchasable' %>

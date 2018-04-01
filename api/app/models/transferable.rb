@@ -23,6 +23,9 @@ class Transferable < ApplicationRecord
 
   delegate :account, to: :game
 
+  scope :ordered, -> { order(identifier: :desc) }
+  scope :purchasable, -> { where(purchasable: true) }
+
   def properties=(value)
     new_value = value.is_a?(String) ?  JSON.parse(value) : value
     super new_value

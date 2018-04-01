@@ -5,6 +5,7 @@
   <%= form.input :name %>
   <%= form.input :value %>
   <%= form.input :tradeable, label: 'Is tradeable? (Can be it be used for trading)' %>
+  <%= form.input :primary %>
   <%= form.image_input :image %>
   <%= form.buttons cancel_path: game_path(form.object.game) %>
 <% end %>

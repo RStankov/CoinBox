@@ -25,6 +25,7 @@
     "expo": "^25.0.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
+    "immutability-helper": "^2.6.6",
     "lodash": "^4.17.5",
     "native-base": "^2.4.1",
     "react": "16.2.0",
