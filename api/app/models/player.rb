@@ -26,6 +26,8 @@ class Player < ApplicationRecord
 
   belongs_to :game, inverse_of: :players, counter_cache: true
 
+  has_one :player_wallet_cache, dependent: :destroy, inverse_of: :player
+
   validates :username, presence: true, uniqueness: { scope: :game_id }
 
   delegate :account, to: :game

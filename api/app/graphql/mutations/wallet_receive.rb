@@ -20,16 +20,23 @@ class Mutations::WalletReceive < Resolvers::Mutation
   require_payer
 
   def perform
-    player_id = current_player.id
+    ActiveRecord::Base.transaction do
+      (inputs[:transferables] || []).each do |input|
+        transferable = current_game.transferables.find_by! identifier: input[:id]
+        Ledger.give_transferable(
+          player: current_player,
+          transferable: transferable,
+        )
+      end
 
-    (inputs[:transferables] || []).each do |input|
-      transferable = current_game.transferables.find_by! identifier: input[:id]
-      # TODO(rstankov): LedgerApi.give_transferable(player_id, transferable.id)
-    end
-
-    (inputs[:consumables] || []).each do |input|
-      consumable = current_game.consumables.find_by! identifier: input[:id]
-      # TODO(rstankov): LedgerApi.give_consumable(player_id, consumable.id, input[:amount])
+      (inputs[:consumables] || []).each do |input|
+        consumable = current_game.consumables.find_by! identifier: input[:id]
+        Ledger.give_consumable(
+          player: current_player,
+          consumable: consumable,
+          amount: input[:amount]
+        )
+      end
     end
 
     PlayerWallet.new(current_player)

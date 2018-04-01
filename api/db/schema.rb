@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_01_013900) do
+ActiveRecord::Schema.define(version: 2018_04_01_090156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 2018_04_01_013900) do
     t.index ["account_id"], name: "index_games_on_account_id"
   end
 
+  create_table "player_wallet_caches", force: :cascade do |t|
+    t.uuid "player_id", null: false
+    t.jsonb "consumables", default: {}, null: false
+    t.jsonb "transferables", default: [], null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_player_wallet_caches_on_player_id", unique: true
+  end
+
   create_table "players", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "game_id", null: false
     t.string "username", null: false
@@ -141,6 +150,7 @@ ActiveRecord::Schema.define(version: 2018_04_01_013900) do
   add_foreign_key "consumables", "games"
   add_foreign_key "game_api_keys", "games"
   add_foreign_key "games", "accounts"
+  add_foreign_key "player_wallet_caches", "players"
   add_foreign_key "players", "games"
   add_foreign_key "transferables", "games"
 end

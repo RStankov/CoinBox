@@ -10,12 +10,12 @@ class Mutations::TransferableSell < Resolvers::Mutation
     transferable = current_game.transferables.find_by! identifier: inputs[:transferable_id]
     consumable = current_game.consumables.find_by! identifier: inputs[:consumable_id]
 
-    player_id = current_player.id,
-    transferable_id = transferable.id
-    consumable_id = consumable.id
-    amount = consumable.amount_for_transfarable(transferable)
-
-    # TODO(rstankov): LedgerApi.sell(payer_id, transferable_id, consumable_id, amount)
+    Ledger.sell(
+      player: current_player,
+      transferable: transferable,
+      consumable: consumable,
+      amount: consumable.amount_for_transfarable(transferable)
+    )
 
     PlayerWallet.new(current_player)
   end
