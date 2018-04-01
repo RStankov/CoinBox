@@ -4,12 +4,6 @@ class Resolvers::PlayerWalletResolver < GraphQL::Function
   def call(obj, _args, ctx)
     return nil if obj != ctx[:current_player]
 
-    # TODO(rstankov): User ledger api
-    OpenStruct.new(
-      transferables: obj.game.transferables,
-      consumables: obj.game.consumables.map do |c|
-        OpenStruct.new amount: 10, consumable: c
-      end
-    )
+    PlayerWallet.new(ctx[:current_player])
   end
 end
