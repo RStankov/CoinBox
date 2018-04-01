@@ -19,3 +19,37 @@ t2 = demo.transferables.find_by(identifier: 'blue_eye_dragon') || demo.transfera
 player = demo.players.find_by_email('coinbox@example.com') || demo.players.create!(
   username: 'TwoThirds', email: 'coinbox@example.com', password: '123456789', access_token: '7e5bc6a0a5b6ad4920ba54b68cb9389332d20c8c'
 )
+
+def create_player_seed(demo, username:)
+  email = "#{username.underscore}@example.com"
+
+  demo.players.find_by_email(email) || demo.players.create!(
+    username: username, email: email, password: '123456789'
+  )
+end
+
+%w(DdasDas StanCifka Muzzy Xixo Zalae tom60229 Orange Rdu Amnesiac).each do |username|
+  create_player_seed demo, username: username
+end
+
+
+def create_seed_card(demo, name:, value:)
+  identifier = name.underscore
+
+  demo.transferables.find_by(identifier: identifier) || demo.transferables.create!(identifier: identifier, name: name, value: value, properties: { atk: 0, def: 0 }, purchasable: true)
+end
+
+create_seed_card demo, name: 'Dragunity Knight', value: 112
+create_seed_card demo, name: 'Five Head Dragon', value: 32
+create_seed_card demo, name: 'Chaos Dragon', value: 304
+create_seed_card demo, name: 'Brain Control', value: 500
+create_seed_card demo, name: 'Luster Soldier', value: 302
+create_seed_card demo, name: 'Junk Destroyer', value: 642
+create_seed_card demo, name: 'Monster Reborn', value: 124
+create_seed_card demo, name: 'Impreion Magnum', value: 98
+create_seed_card demo, name: 'Baltlebot', value: 132
+create_seed_card demo, name: 'Demon Lord', value: 522
+create_seed_card demo, name: 'Sky Dragon', value: 52
+create_seed_card demo, name: 'Das Vosltgrap', value: 94
+create_seed_card demo, name: 'Shift', value: 23
+create_seed_card demo, name: 'Aleister the Invoker', value: 432
