@@ -37,6 +37,6 @@ export default class List extends React.Component {
   }
 }
 
-function keyExtractor(item, index) {
-  return item.id || index;
+function keyExtractor(_item, index) {
+  return index;
 }

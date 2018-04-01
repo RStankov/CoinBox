@@ -1,7 +1,7 @@
 Types::TransferableType = GraphQL::ObjectType.define do
   name 'Transferable'
 
-  field :id, !types.String, property: :identifier
+  field :id, !types.ID, property: :identifier
   field :name, !types.String
   field :properties, !Types::JsonType
   field :image, function: Resolvers::ImageResolver.new(:image)

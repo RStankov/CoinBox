@@ -1,17 +1,12 @@
 class Resolvers::TransferablePriceResolver < GraphQL::Function
-  type do
-    name 'TransferablePrice'
-
-    field :amount, !types.Int
-    field :consumable, Types::ConsumableType
-  end
+  type Types::ConsumableAmountType
 
   def call(obj, _args, _ctx)
     consumable = obj.game.consumables.where(primary: true).first
 
     if consumable
       OpenStruct.new(
-        amount: (obj.value.to_f / consumable.value).round,
+        amount: consumable.amount_for_transfarable(obj),
         consumable: consumable,
       )
     else

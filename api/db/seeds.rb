@@ -17,5 +17,5 @@ t1 = demo.transferables.find_by(identifier: 'dark_magician') || demo.transferabl
 t2 = demo.transferables.find_by(identifier: 'blue_eye_dragon') || demo.transferables.create!(identifier: 'blue_eye_dragon', name: 'Blue-Eyes White Dragon', value: 200, properties: { atk: 3000, def: 2500 }, purchasable: true)
 
 player = demo.players.find_by_email('coinbox@example.com') || demo.players.create!(
-  username: 'TwoThirds', email: 'coinbox@example.com', password: '123456789'
+  username: 'TwoThirds', email: 'coinbox@example.com', password: '123456789', access_token: '7e5bc6a0a5b6ad4920ba54b68cb9389332d20c8c'
 )

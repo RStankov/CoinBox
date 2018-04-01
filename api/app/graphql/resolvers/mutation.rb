@@ -18,13 +18,15 @@ class Resolvers::Mutation
   end
 
   def call
+    raise Pundit::NotAuthorizedError if self.class.require_player? && current_player.nil?
+
     result = perform
 
     if result.nil?
       success
     elsif result.is_a? Hash
       result
-    elsif result.errors.any?
+    elsif result.respond_to?(:errors) && result.errors.any?
       errors_from_record result
     elsif result.respond_to? :node
       success result.node
@@ -89,6 +91,14 @@ class Resolvers::Mutation
 
     def types
       GraphQL::Define::TypeDefiner.instance
+    end
+
+    def require_payer
+      @require_payer = true
+    end
+
+    def require_player?
+      @require_payer.present?
     end
 
     def field

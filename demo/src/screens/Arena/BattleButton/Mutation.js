@@ -1,13 +1,17 @@
 import gql from 'graphql-tag';
 import Card from 'components/Card/Fragment';
-import Wallet from 'components/Wallet/Fragment';
 
 export default gql`
-  query {
-    viewer {
-      id
-      ...Wallet
-      wallet {
+  mutation WalletReceive($input: WalletReceiveInput!) {
+    response: walletReceive(input: $input) {
+      node {
+        id
+        consumables {
+          amount
+          consumable {
+            id
+          }
+        }
         transferables {
           edges {
             node {
@@ -20,8 +24,11 @@ export default gql`
           }
         }
       }
+      errors {
+        field
+        messages
+      }
     }
   }
-  ${Wallet}
   ${Card}
 `;

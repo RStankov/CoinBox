@@ -5,24 +5,30 @@ import QUERY from './Query';
 import React from 'react';
 import compose from 'utils/compose';
 import withLoading from 'utils/withLoading';
-import { Button } from 'react-native';
+import { Button, View } from 'react-native';
 import { graphql } from 'react-apollo';
+import BattleButton from './BattleButton';
+import Wallet from 'components/Wallet';
+import LinkButton from 'components/LinkButton';
 
 class Screen extends React.Component {
   render() {
     return (
-      <List
-        data={this.props.data}
-        connectionPath="game.players"
-        renderItem={this.renderItem}
-      />
+      <View>
+        <Wallet player={this.props.data.viewer} />
+        <List
+          data={this.props.data}
+          connectionPath="game.players"
+          renderItem={this.renderItem}
+        />
+      </View>
     );
   }
 
   renderItem({ item }) {
     return (
       <PlayerCard player={item}>
-        <Button title="Battle" onPress={() => null} />
+        <BattleButton player={item} />
       </PlayerCard>
     );
   }
@@ -32,6 +38,8 @@ const Container = compose(graphql(QUERY), withLoading)(Screen);
 
 Container.navigationOptions = {
   title: 'Arena',
+  headerLeft: <LinkButton title="Deck" screen="Deck" />,
+  headerRight: <LinkButton title="Store" screen="Store" />,
 };
 
 export default Container;

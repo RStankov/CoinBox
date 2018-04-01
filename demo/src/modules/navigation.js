@@ -15,7 +15,7 @@ export const name = 'navigation';
 // reducer
 
 const initialState = AppNavigator.router.getStateForAction(
-  AppNavigator.router.getActionForPathAndParams('Home'),
+  AppNavigator.router.getActionForPathAndParams('Arena'),
 );
 
 export function reducer(state = initialState, action) {

@@ -27,6 +27,10 @@ class Consumable < ApplicationRecord
 
   after_save :ensure_only_one_primary
 
+  def amount_for_transfarable(transferable)
+    (transferable.value.to_f / value).round
+  end
+
   private
 
   def ensure_only_one_primary
