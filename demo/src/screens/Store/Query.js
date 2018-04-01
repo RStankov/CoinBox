@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import Card from 'components/Card/Fragment';
 
 export default gql`
   query {
@@ -10,17 +11,7 @@ export default gql`
       store {
         edges {
           node {
-            id
-            name
-            image(size: 60)
-            properties
-            price {
-              amount
-              consumable {
-                id
-                name
-              }
-            }
+            ...Card
           }
         }
         pageInfo {
@@ -30,4 +21,5 @@ export default gql`
       }
     }
   }
+  ${Card}
 `;
