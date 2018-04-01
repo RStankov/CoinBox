@@ -18,6 +18,7 @@
 #  last_sign_in_ip        :inet
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  access_token           :string
 #
 
 class Player < ApplicationRecord
@@ -28,4 +29,8 @@ class Player < ApplicationRecord
   validates :username, presence: true, uniqueness: { scope: :game_id }
 
   delegate :account, to: :game
+
+  def generate_access_token
+    update! access_token: GenerateToken.call(model: self, attribute_name: :access_token, length: 20)
+  end
 end

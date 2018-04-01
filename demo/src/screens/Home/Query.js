@@ -2,6 +2,13 @@ import gql from 'graphql-tag';
 
 export default gql`
   {
-    testField
+    viewer {
+      id
+      username
+    }
+    game {
+      id
+      name
+    }
   }
 `;

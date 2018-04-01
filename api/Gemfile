@@ -26,6 +26,7 @@ gem 'search_object'
 gem 'search_object_graphql'
 gem 'graphql-pundit'
 gem 'graphql-batch'
+gem 'rest-client'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

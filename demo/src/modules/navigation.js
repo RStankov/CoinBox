@@ -1,24 +1,12 @@
 import React from 'react';
-import {
-  StackNavigator,
-  addNavigationHelpers,
-  NavigationActions,
-} from 'react-navigation';
+import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import {
   createReduxBoundAddListener,
   createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers';
 import { connect } from 'react-redux';
 
-// screens
-
-import Home from 'screens/Home';
-import PizzaPicker from 'screens/PizzaPicker';
-
-const AppNavigator = StackNavigator({
-  Home: { screen: Home },
-  PizzaPicker: { screen: PizzaPicker },
-});
+import AppNavigator from 'screens';
 
 // name
 
@@ -38,6 +26,10 @@ export function reducer(state = initialState, action) {
 
 export function navigateTo(routeName, params) {
   return NavigationActions.navigate({ routeName, params });
+}
+
+export function navigateBack(params = {}) {
+  return NavigationActions.back(params);
 }
 
 // selector
