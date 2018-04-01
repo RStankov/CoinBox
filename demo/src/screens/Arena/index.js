@@ -9,6 +9,7 @@ import { Button, View } from 'react-native';
 import { graphql } from 'react-apollo';
 import BattleButton from './BattleButton';
 import Wallet from 'components/Wallet';
+import LinkButton from 'components/LinkButton';
 
 class Screen extends React.Component {
   render() {
@@ -37,6 +38,8 @@ const Container = compose(graphql(QUERY), withLoading)(Screen);
 
 Container.navigationOptions = {
   title: 'Arena',
+  headerLeft: <LinkButton title="Deck" screen="Deck" />,
+  headerRight: <LinkButton title="Store" screen="Store" />,
 };
 
 export default Container;
