@@ -12,7 +12,7 @@ export default gql`
           node {
             id
             name
-            image(size: 40)
+            image(size: 60)
             properties
             price {
               amount
