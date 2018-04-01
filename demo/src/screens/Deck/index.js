@@ -6,9 +6,9 @@ import QUERY from './Query';
 import React from 'react';
 import compose from 'utils/compose';
 import withLoading from 'utils/withLoading';
-import { Button } from 'react-native';
 import { graphql } from 'react-apollo';
 import { View } from 'react-native';
+import SellButton from './SellButton';
 
 class Screen extends React.Component {
   render() {
@@ -27,7 +27,7 @@ class Screen extends React.Component {
   renderItem({ item }) {
     return (
       <Card card={item}>
-        <Button title="Sell" onPress={() => null} />
+        <SellButton card={item} />
       </Card>
     );
   }
