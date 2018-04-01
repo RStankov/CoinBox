@@ -26,14 +26,14 @@ module Ledger
     cache.consumables[consumable.identifier] -= amount
     raise 'ledger error' if cache.consumables[consumable.identifier] < 0
 
-    cache.transferables << transferable.id
+    cache.transferables << transferable.identifier
     cache.save!
   end
 
   def sell(player:, transferable:, consumable:, amount:)
     cache = PlayerWalletCache.for(player)
 
-    index = cache.transferables.index(transferable.id)
+    index = cache.transferables.index(transferable.identifier)
 
     raise 'ledger error' if index.nil?
 
