@@ -2,6 +2,8 @@ class Mutations::TransferableSell < Resolvers::Mutation
   input :transferable_id, !types.ID
   input :consumable_id, !types.ID
 
+  require_payer
+
   returns Types::PlayerWalletType
 
   def perform

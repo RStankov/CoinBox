@@ -4,6 +4,8 @@ class Mutations::TransferableBuy < Resolvers::Mutation
 
   returns Types::PlayerWalletType
 
+  require_payer
+
   def perform
     transferable = current_game.transferables.find_by! identifier: inputs[:transferable_id]
     consumable = current_game.consumables.find_by! identifier: inputs[:consumable_id]
