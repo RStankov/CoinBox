@@ -9,6 +9,7 @@ import withLoading from 'utils/withLoading';
 import { Button } from 'react-native';
 import { graphql } from 'react-apollo';
 import { View } from 'react-native';
+import BuyButton from './BuyButton';
 
 class Screen extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class Screen extends React.Component {
   renderItem({ item }) {
     return (
       <Card card={item}>
-        <Button title="Buy" onPress={() => null} />
+        <BuyButton card={item} />
       </Card>
     );
   }
