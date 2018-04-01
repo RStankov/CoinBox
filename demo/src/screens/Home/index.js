@@ -1,40 +1,49 @@
-import React from 'react';
-import { Text, Button } from 'react-native';
-import withActions from 'utils/withActions';
-import { navigateTo } from 'modules/navigation';
 import CenterView from 'components/CenterView';
-import { Query } from 'react-apollo';
 import QUERY from './Query';
+import React from 'react';
+import compose from 'utils/compose';
+import withActions from 'utils/withActions';
+import withLoading from 'utils/withLoading';
+import { View, Text, Button } from 'react-native';
+import { graphql } from 'react-apollo';
+import { navigateTo } from 'modules/navigation';
+import { signOut } from 'utils/authentication';
 
-function Screen({ navigateTo }) {
-  return (
-    <CenterView>
-      <Button
-        title="Sign In"
-        onPress={() => navigateTo('SignIn', { name: 'Test' })}
-      />
-      <Query query={QUERY}>
-        {({ loading, error, data }) => {
-          if (loading) return <Text>Loading...</Text>;
-          if (error) return <Text>Error :(</Text>;
+class Screen extends React.Component {
+  handleSignIn = () => {
+    this.props.navigateTo('SignIn');
+  };
 
-          if (data.viewer) {
-            return (
-              <Text>
-                {data.viewer.username} is playing {data.game.name}
-              </Text>
-            );
-          } else {
-            return <Text>{data.game.name}</Text>;
-          }
-        }}
-      </Query>
-    </CenterView>
-  );
+  handleSignOut = () => {
+    signOut();
+    this.props.data.refetch();
+  };
+
+  render() {
+    const { navigateTo, data: { viewer, game } } = this.props;
+
+    return (
+      <CenterView>
+        <Text>Game: {game.name}</Text>
+        {viewer ? (
+          <View>
+            <Text>Player: {viewer.username}</Text>
+            <Button title="Sign Out" onPress={this.handleSignOut} />
+          </View>
+        ) : (
+          <Button title="Sign In" onPress={this.handleSignIn} />
+        )}
+      </CenterView>
+    );
+  }
 }
 
 Screen.navigationOptions = {
   title: 'Home',
 };
 
-export default withActions({ navigateTo })(Screen);
+export default compose(
+  graphql(QUERY),
+  withActions({ navigateTo }),
+  withLoading,
+)(Screen);
