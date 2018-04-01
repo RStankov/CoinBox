@@ -1,10 +1,11 @@
+import Image from 'components/Image';
+import List from 'components/List';
 import QUERY from './Query';
 import React from 'react';
 import compose from 'utils/compose';
 import withLoading from 'utils/withLoading';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { graphql } from 'react-apollo';
-import List from 'components/List';
 
 class Screen extends React.Component {
   render() {
@@ -21,11 +22,7 @@ class Screen extends React.Component {
 function renderItem({ item }) {
   return (
     <View style={styles.container} key={item.id}>
-      {item.image ? (
-        <Image style={styles.image} source={{ uri: item.image }} />
-      ) : (
-        <View style={styles.placeholder} />
-      )}
+      <Image size={60} url={item.image} />
       <View style={styles.info}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.price}>
@@ -51,20 +48,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
-  },
   info: {
     marginLeft: 10,
     flex: 1,
-  },
-  placeholder: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
-    backgroundColor: '#888',
   },
   name: {
     flex: 1,
