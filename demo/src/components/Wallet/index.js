@@ -4,7 +4,6 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function Wallet({ player, children }) {
   const wallet = getWallet(player);
 
-  console.log(wallet);
   return (
     <View style={styles.container}>
       <Text style={styles.wallet}>Wallet</Text>
